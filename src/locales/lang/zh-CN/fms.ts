@@ -72,4 +72,33 @@ export default {
     editCloudFileTag: '编辑云文件标签',
     cloudFileTagList: '云文件标签列表',
   },
+  feedback:{
+    title:"主题",
+    name:"留言回复",
+    content:"正文",
+    memberId:"会员id",
+    all:"所有",
+    noReply:"已回复",
+    replied:"未回复",
+    type:"类型"
+  },
+  device:{
+    device:"设备详情",
+    serialNumber:"设备S/N",
+    adminName:"用户名",
+    deviceName:"设备名称",
+    activatedTime:"激活时间",
+    deviceVipLevel:"VIP等级",
+    onlinestatus:"在线状态",
+    online:"在线",
+    offline:"离线",
+    personDetect:"人物检测",
+    supportBirdVip:"鸟类识别",
+    on:"关",
+    off:"开",
+    firmwareld:"固件ID",
+    firmwareStatus:"固件状态",
+    icon:"图标",
+    macAddress:"MAC地址"
+  }
 };
