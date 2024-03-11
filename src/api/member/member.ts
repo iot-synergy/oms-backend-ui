@@ -6,8 +6,10 @@ import {
   BaseResp,
   BaseUUIDsReq,
   BaseUUIDReq,
+  UserDeviceReq,
 } from '/@/api/model/baseModel';
 import { MemberInfo, MemberListResp } from './model/memberModel';
+import { DeviceInfo } from '../device/deviceModel';
 
 enum Api {
   CreateMember = '/mms-api/member/create',
@@ -15,6 +17,7 @@ enum Api {
   GetMemberList = '/mms-api/member/list',
   DeleteMember = '/mms-api/member/delete',
   GetMemberById = '/mms-api/member',
+  GetQueryUserDeviceList = '/mms-api/device/queryUserDeviceList',
 }
 
 /**
@@ -73,6 +76,16 @@ export const deleteMember = (params: BaseUUIDsReq, mode: ErrorMessageMode = 'not
 export const getMemberById = (params: BaseUUIDReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<MemberInfo>>(
     { url: Api.GetMemberById, params: params },
+    {
+      errorMessageMode: mode,
+    },
+  );
+};
+
+
+export const getQueryUserDeviceList = (params: UserDeviceReq, mode: ErrorMessageMode = 'notice') => {
+  return defHttp.post<BaseDataResp<DeviceInfo>>(
+    { url: Api.GetQueryUserDeviceList, params: params },
     {
       errorMessageMode: mode,
     },

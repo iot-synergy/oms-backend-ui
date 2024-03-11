@@ -72,4 +72,33 @@ export default {
     editCloudFileTag: "Edit Cloud File's Tag",
     cloudFileTagList: "Cloud File's Tag List",
   },
+  feedback:{
+    title:"title",
+    name:"Message reply",
+    content:"content",
+    memberId:"memberId",
+    all:"All",
+    noReply:"No Reply",
+    replied:"Replied",
+    type:"Type"
+  },
+  device:{
+    device:"Device Details",
+    serialNumber:"serialNumber",
+    adminName:"adminName",
+    deviceName:"deviceName",
+    activatedTime:"activatedTime",
+    deviceVipLevel:"deviceVipLevel",
+    onlinestatus:"online",
+    online:"online",
+    offline:"offline",
+    personDetect:"Character detection",
+    supportBirdVip:"Bird identification",
+    on:"on",
+    off:"off",
+    firmwareld:"firmware ld",
+    firmwareStatus:"firmware Status",
+    icon:"icon",
+    macAddress:"mac Address"
+  }
 };

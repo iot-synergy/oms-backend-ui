@@ -34,3 +34,19 @@ export interface BaseUUIDReq {
 export interface BaseUUIDsReq {
   ids: string[];
 }
+export interface ReplyComment{
+  commentId?: number;
+  reply: string;
+}
+export interface FeedbackListReq {
+  page:number,
+  pageSize:number,
+}
+
+export interface DeviceReq {
+  serialNumber:string,
+  productId:string,
+}
+export interface UserDeviceReq {
+  addxUserId:string,
+}

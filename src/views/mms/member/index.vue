@@ -26,9 +26,13 @@
             <template v-if="column.key === 'action'">
               <TableAction
                 :actions="[
+                  // {
+                  //   icon: 'clarity:note-edit-line',
+                  //   onClick: handleEdit.bind(null, record),
+                  // },
                   {
-                    icon: 'clarity:note-edit-line',
-                    onClick: handleEdit.bind(null, record),
+                    icon: 'ic:round-library-books',
+                    onClick: handleOpenLogModal.bind(null, record),
                   },
                   {
                     icon: 'bx:log-out-circle',
@@ -39,15 +43,15 @@
                       confirm: handleLogout.bind(null, record),
                     },
                   },
-                  {
-                    icon: 'ant-design:delete-outlined',
-                    color: 'error',
-                    popConfirm: {
-                      title: t('common.deleteConfirm'),
-                      placement: 'left',
-                      confirm: handleDelete.bind(null, record),
-                    },
-                  },
+                  // {
+                  //   icon: 'ant-design:delete-outlined',
+                  //   color: 'error',
+                  //   popConfirm: {
+                  //     title: t('common.deleteConfirm'),
+                  //     placement: 'left',
+                  //     confirm: handleDelete.bind(null, record),
+                  //   },
+                  // },
                 ]"
               />
             </template>
@@ -56,6 +60,7 @@
       </Col>
     </Row>
     <MemberDrawer @register="registerDrawer" @success="handleSuccess" />
+    <LogModal @register="registerModal" :defaultFullscreen="true" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -72,10 +77,12 @@
 
   import { columns, searchFormSchema } from './member.data';
   import { getMemberList, deleteMember } from '../../../api/member/member';
+  import { useModal } from '/@/components/Modal/src/hooks/useModal';
   import { PageWrapper } from '/@/components/Page';
   import Row from 'ant-design-vue/es/grid/Row';
   import Col from 'ant-design-vue/es/grid/Col';
   import { logout } from '/@/api/member/token';
+  import LogModal from './LogModal.vue';
 
   export default defineComponent({
     name: 'MemberManagement',
@@ -84,6 +91,7 @@
       MemberDrawer,
       TableAction,
       Button,
+      LogModal,
       PageWrapper,
       Row,
       Col,
@@ -94,11 +102,16 @@
       const selectedIds = ref<number[] | string[]>();
       const searchInfo = reactive<Recordable>({});
       const showDeleteButton = ref<boolean>(false);
+      const [registerModal, { openModal }] = useModal();
+      const addxUserId = ref('');
 
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
         title: t('sys.member.memberList'),
         api: getMemberList,
+        // fetchSetting: {
+        //   sizeField: "20",
+        // },
         columns,
         formConfig: {
           labelWidth: 120,
@@ -171,6 +184,10 @@
       async function handleSuccess() {
         await reload();
       }
+      function handleOpenLogModal(record: Recordable) {
+        addxUserId.value = record.id;
+        openModal(true, { record });
+      }
 
       function handleSelect(rankId) {
         searchInfo.rankId = rankId;
@@ -179,6 +196,8 @@
 
       return {
         t,
+        addxUserId,
+        registerModal,
         registerTable,
         registerDrawer,
         handleCreate,
@@ -190,6 +209,7 @@
         handleLogout,
         showDeleteButton,
         searchInfo,
+        handleOpenLogModal,
       };
     },
   });

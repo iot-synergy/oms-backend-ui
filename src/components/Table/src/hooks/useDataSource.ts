@@ -309,6 +309,9 @@ export function useDataSource(
 
       const result = await api(params);
       const res = result.data;
+      console.log("--------------------------");
+      console.log(result);
+      console.log("--------------------------");
       if (isTreeTable) {
         const tree = array2tree(res.data);
         rawDataSourceRef.value = tree;
