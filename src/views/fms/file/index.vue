@@ -285,7 +285,7 @@
         handleDownload,
         handleChange: (list: string[]) => {
           // createMessage.info(`已上传文件${JSON.stringify(list)}`);
-          console.log(list);
+          console.log("上传的文件-------",list);
         },
         uploadApi,
         visible,

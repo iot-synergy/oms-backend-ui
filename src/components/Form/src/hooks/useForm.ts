@@ -44,6 +44,7 @@ export function useForm(props?: Props): UseFormReturnType {
     watch(
       () => props,
       () => {
+        console.log("watch  useform---------:", props);
         props && instance.setProps(getDynamicProps(props));
       },
       {

@@ -100,5 +100,19 @@ export default {
     firmwareStatus:"固件状态",
     icon:"图标",
     macAddress:"MAC地址"
+  },
+  IllustratedGuide:{
+    title:"创建图鉴",
+    edittitle:"编辑图鉴",
+    name:"标题",
+    score:"评分",
+    Wikipedia:"维基百科",
+    image:"图片",
+    back:"背景图",
+    label:"标签",
+    details:"详情",
+    Uploadimages:"上传图片",
+    addlabel:"新增标签",
+    editlabel:"编辑标签",
   }
 };

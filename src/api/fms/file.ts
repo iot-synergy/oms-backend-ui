@@ -12,6 +12,7 @@ enum Api {
   SetFileStatus = '/fms-api/file/status',
   DownloadFile = '/fms-api/file/download',
   DeleteFile = '/fms-api/file/delete',
+  uploadImage = '/fms-api/cloud_file/upload',
 }
 
 /**
@@ -30,13 +31,35 @@ export function uploadApi(
   );
 }
 
+export function uploadImageApi(
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: any) => void,
+) {
+  return defHttp.uploadFile<BaseDataResp<UploadApiResp>>({
+    url: Api.uploadImage, // 上传图片的 API 地址
+    onUploadProgress, // 上传进度回调
+  }, params);
+}
+
+export function uploadImageIconApi(
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: any) => void,
+) {
+  console.log(1111); 
+  console.log(params);
+  return defHttp.uploadImageFile<BaseDataResp<UploadApiResp>>({
+    url: Api.uploadImage, // 上传图片的 API 地址
+    onUploadProgress, // 上传进度回调
+  }, params);
+}
+
 /**
  * @description: Get file list
  */
 
 export const getFileList = (params: BaseListReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<FileListResp>>(
-    { url: Api.GetFileList, params }, 
+    { url: Api.GetFileList, params },
     {
       errorMessageMode: mode,
       successMessageMode: 'none',

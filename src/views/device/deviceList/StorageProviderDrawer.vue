@@ -91,10 +91,7 @@
 
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
         // queryDetail(data?.record.id);
-        console.log('====================================');
-        console.log(data?.record);
         dataMap.value = data?.record;
-        console.log('====================================');
         resetFields();
         setDrawerProps({ confirmLoading: false });
 

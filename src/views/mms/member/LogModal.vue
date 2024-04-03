@@ -4,7 +4,7 @@
     title=""
     @register="registerModal"
     :wrapperFooterOffset="50"
-    :cancelText="t('common.closeText')"
+    cancelText=""
     :showOkBtn="false"
   >
     <BasicTable @register="registerTable" :searchInfo="searchInfo" class="tableHeight">
@@ -23,23 +23,23 @@
   import { Modal } from 'ant-design-vue';
   import { createVNode, defineComponent, reactive, ref } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import { columns, searchFormSchema } from './../../device/deviceList/storageProvider.data';
+  import { columns} from './../../device/deviceList/storageProvider.data';
   import { Button } from '/@/components/Button';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  // import { useMessage } from '/@/hooks/web/useMessage';
   import { getQueryUserDeviceList } from '../../../api/member/member';
 
   export default defineComponent({
     components: { BasicModal, BasicTable, DeleteOutlined, Button },
     setup() {
       const { t } = useI18n();
-      const selectedIds = ref<number[] | string[]>();
+      // const selectedIds = ref<number[] | string[]>();
       const showDeleteButton = ref<boolean>(false);
-      const { notification } = useMessage();
+      // const { notification } = useMessage();
       const searchInfo = reactive<Recordable>({});
       const [registerTable, { reload }] = useTable({
-        title: t('sys.task.taskList'),
+        title: "",
         api: getQueryUserDeviceList,
         columns,
         formConfig: {
@@ -84,7 +84,7 @@
             //     description: t(result.msg),
             //     duration: 3,
             //   });
-            //   await reload();
+              await reload();
             // }
           },
           onCancel() {

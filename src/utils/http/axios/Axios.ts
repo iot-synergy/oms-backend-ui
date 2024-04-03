@@ -128,28 +128,31 @@ export class VAxios {
    */
   uploadFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
     const formData = new window.FormData();
-    const customFilename = params.name || 'file';
+    // const customFilename = params.name || 'file';
+    const customFilename = 'file';
+    // if (params.filename) {
+      formData.append(customFilename, params.file, params.file.name);
+      console.log(params.file);
+      console.log(params.file.name);
+    // } else {
+      // formData.append("md5", params.file);
+    // }
 
-    if (params.filename) {
-      formData.append(customFilename, params.file, params.filename);
-    } else {
-      formData.append(customFilename, params.file);
-    }
+    // if (params.data) {
+    //   Object.keys(params.data).forEach((key) => {
+    //     const value = params.data![key];
+    //     if (Array.isArray(value)) {
+    //       value.forEach((item) => {
+    //         formData.append(`${key}[]`, item);
+    //       });
+    //       return;
+    //     }
 
-    if (params.data) {
-      Object.keys(params.data).forEach((key) => {
-        const value = params.data![key];
-        if (Array.isArray(value)) {
-          value.forEach((item) => {
-            formData.append(`${key}[]`, item);
-          });
-          return;
-        }
-
-        formData.append(key, params.data![key]);
-      });
-    }
-
+    //     formData.append(key, params.data![key]);
+    //   });
+    // }
+    console.log("----------");
+    console.log(formData);
     return this.axiosInstance.request<T>({
       ...config,
       method: 'POST',
@@ -157,7 +160,46 @@ export class VAxios {
       headers: {
         'Content-type': ContentTypeEnum.FORM_DATA,
         // @ts-ignore
-        ignoreCancelToken: true,
+        // ignoreCancelToken: true,
+      },
+    });
+  }
+
+  uploadImageFile<T = any>(config: AxiosRequestConfig, params: UploadFileParams) {
+    const formData = new window.FormData();
+    // const customFilename = params.name || 'file';
+    const customFilename = 'file';
+    // if (params.filename) {
+      formData.append(customFilename, params.file, params.file.name);
+      console.log(params.file);
+      console.log(params.file.name);
+    // } else {
+      // formData.append("md5", params.file);
+    // }
+
+    // if (params.data) {
+    //   Object.keys(params.data).forEach((key) => {
+    //     const value = params.data![key];
+    //     if (Array.isArray(value)) {
+    //       value.forEach((item) => {
+    //         formData.append(`${key}[]`, item);
+    //       });
+    //       return;
+    //     }
+
+    //     formData.append(key, params.data![key]);
+    //   });
+    // }
+    console.log("----------");
+    console.log(formData);
+    return this.axiosInstance.request<T>({
+      ...config,
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-type': ContentTypeEnum.FORM_DATA,
+        // @ts-ignore
+        // ignoreCancelToken: true,
       },
     });
   }

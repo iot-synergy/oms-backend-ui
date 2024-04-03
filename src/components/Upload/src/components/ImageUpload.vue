@@ -57,11 +57,12 @@
   const fileList = ref<UploadProps['fileList']>([]);
   const isLtMsg = ref<boolean>(true);
   const isActMsg = ref<boolean>(true);
+  const uploadedFiles = ref<any[]>([]);
 
   watch(
     () => props.value,
     (v) => {
-      console.log(v);
+      console.log("监听watch：", v);
       if (v && isArray(v)) {
         fileList.value = v.map((item, i) => {
           if (item && isString(item)) {
@@ -78,16 +79,19 @@
           }
         }) as UploadProps['fileList'];
       } else {
-        fileList.value = [
-          {
-            uid: '-1',
-            name: 'file',
-            status: 'done',
-            url: v,
-          },
-        ];
+        // if (v != '' && v != undefined) {
+          // fileList.value = [
+          //   {
+          //     uid: '-1',
+          //     name: 'file',
+          //     status: 'done',
+          //     url: v,
+          //   },
+          // ] as UploadProps['fileList'];
+        // }
       }
     },
+    { immediate: true },
   );
 
   const responseData = computed(() => {
@@ -177,7 +181,9 @@
         name: props.name,
         filename: props.filename,
       });
+      uploadedFiles.value.push(res.data.data.url);
       info.onSuccess!(res.data.data);
+      console.log(responseData);
       emit('change', responseData);
     } catch (e: any) {
       console.log(e);

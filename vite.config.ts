@@ -36,6 +36,7 @@ export default defineApplicationConfig({
         '/sys-api': {
           // target: 'http://localhost:9100',
           target: 'https://peckperk-oms.prerule.cn',
+          // target: 'https://peckperk-sit.prerule.cn',
           changeOrigin: true,
           // rewrite: (path) => path.replace(new RegExp(`^/sys-api`), ''),
           // only https
@@ -45,6 +46,7 @@ export default defineApplicationConfig({
         '/fms-api': {
           // target: 'http://localhost:9102',
           target: 'https://peckperk-oms.prerule.cn',
+          // target: 'https://peckperk-sit.prerule.cn',
           changeOrigin: true,
           ws: true,
           //rewrite: (path) => path.replace(new RegExp(`^/fms-api`), ''),
@@ -52,6 +54,15 @@ export default defineApplicationConfig({
         '/mms-api': {
           // target: 'http://localhost:9104',
           target: 'https://peckperk-oms.prerule.cn',
+          // target: 'https://peckperk-sit.prerule.cn',
+          changeOrigin: true,
+          ws: true,
+          //rewrite: (path) => path.replace(new RegExp(`^/mms-api`), ''),
+        },
+        '/bird-api': {
+          // target: 'http://localhost:9104',
+          target: 'https://peckperk-oms.prerule.cn',
+          // target: 'https://peckperk-sit.prerule.cn',
           changeOrigin: true,
           ws: true,
           //rewrite: (path) => path.replace(new RegExp(`^/mms-api`), ''),

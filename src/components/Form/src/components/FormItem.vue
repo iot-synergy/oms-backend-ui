@@ -273,9 +273,11 @@
             }
             const target = e ? e.target : null;
             const value = target ? (isCheck ? target.checked : target.value) : e;
+            console.log("绑定数据：", field, value, props.schema);
             props.setFormModel(field, value, props.schema);
           },
         };
+        
         const Comp = componentMap.get(component) as ReturnType<typeof defineComponent>;
 
         const { autoSetPlaceHolder, size } = props.formProps;

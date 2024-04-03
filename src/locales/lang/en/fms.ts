@@ -100,5 +100,19 @@ export default {
     firmwareStatus:"firmware Status",
     icon:"icon",
     macAddress:"mac Address"
+  },
+  IllustratedGuide:{
+    title:"Add a picture guide",
+    edittitle:"编辑图鉴",
+    name:"title",
+    score:"score",
+    Wikipedia:"Wikipedia",
+    image:"image",
+    back:"background image",
+    label:"label",
+    details:"details",
+    Uploadimages:"Upload images",
+    addlabel:"Add tags",
+    editlabel:"Edit tags"
   }
 };

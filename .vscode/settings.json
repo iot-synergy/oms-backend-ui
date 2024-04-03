@@ -4,5 +4,6 @@
         "src/locales/lang",
         "public/resource/tinymce/langs",
         "public/resource/tinymce/plugins/help/js/i18n"
-    ]
+    ],
+    "editor.fontSize": 16
 }

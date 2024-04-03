@@ -5,6 +5,7 @@ import { updateStorageProvider } from '/@/api/fms/storageProvider';
 import { Switch, Tag } from 'ant-design-vue';
 import { h } from 'vue';
 import { useRedo } from '/@/hooks/web/usePage';
+import dayjs from 'dayjs';
 
 const { t } = useI18n();
 
@@ -14,7 +15,9 @@ export const columns: BasicColumn[] = [
     dataIndex: 'activatedTime',
     width: 30,
     customRender: ({ record }) => {
-      return record.activatedTime ==null?"": formatToDateTime(record.activatedTime);
+      const convertedDate = dayjs.unix(record.activatedTime == null ? "" : record.activatedTime);
+      const formattedDateTime = formatToDateTime(convertedDate);
+      return formattedDateTime;
     },
   },
   {
@@ -51,7 +54,7 @@ export const columns: BasicColumn[] = [
       return h(
         Tag,
         {
-          color: record.isRequired === true ? 'green' : 'red',
+          color: record.online == false ? 'green' : 'red',
         },
         () => resultText,
       );
@@ -62,17 +65,17 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     width: 20,
     customRender: ({ record }) => {
-      if (!Reflect.has(record, 'personDetect')) {
-        record.personDetect = 0;
-      }
+      // if (!Reflect.has(record, 'personDetect')) {
+      //   record.personDetect = 0;
+      // }
       return h(Switch, {
-        checked: record.status === 1,
+        checked: record.personDetect === 1,
         checkedChildren: t('fms.device.off'),
         unCheckedChildren: t('fms.device.on'),
-        loading: record.personDetect,
+        // loading: record.personDetect,
         onChange(checked, _) {
-          record.personDetect = true;
-          const newStatus = checked ? 1 : 0;
+          // record.personDetect = true;
+          // const newStatus = checked ? 1 : 0;
           // updateDepartment({ id: record.id, status: newStatus })
           //   .then(() => {
           //     record.status = newStatus;
@@ -89,17 +92,17 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     width: 20,
     customRender: ({ record }) => {
-      if (!Reflect.has(record, 'supportBirdVip')) {
-        record.supportBirdVip = false;
-      }
+      // if (!Reflect.has(record, 'supportBirdVip')) {
+      //   record.supportBirdVip = false;
+      // }
       return h(Switch, {
-        checked: record.status === 1,
+        checked: record.supportBirdVip,
         checkedChildren: t('fms.device.off'),
         unCheckedChildren: t('fms.device.on'),
-        loading: record.supportBirdVip,
+        // loading: record.supportBirdVip,
         onChange(checked, _) {
-          record.supportBirdVip = true;
-          const newStatus = checked ? 1 : 0;
+          // record.supportBirdVip = true;
+          // const newStatus = checked ? 1 : 0;
           // updateDepartment({ id: record.id, status: newStatus })
           //   .then(() => {
           //     record.status = newStatus;

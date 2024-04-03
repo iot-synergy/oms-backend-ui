@@ -50,3 +50,8 @@ export interface DeviceReq {
 export interface UserDeviceReq {
   addxUserId:string,
 }
+
+export interface LabelReq {
+  name:string,
+  productId:string,
+}

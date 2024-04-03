@@ -98,9 +98,6 @@
         if (result.code === 0) {
           closeDrawer();
           emit('success');
-          console.log('====================================');
-          console.log(result);
-          console.log('====================================');
         }
         setDrawerProps({ confirmLoading: false });
       }
