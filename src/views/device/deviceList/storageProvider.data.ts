@@ -15,9 +15,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'activatedTime',
     width: 30,
     customRender: ({ record }) => {
-      const convertedDate = dayjs.unix(record.activatedTime == null ? "" : record.activatedTime);
-      const formattedDateTime = formatToDateTime(convertedDate);
-      return formattedDateTime;
+      return formatToDateTime(record.activatedTime);
     },
   },
   {
@@ -46,7 +44,7 @@ export const columns: BasicColumn[] = [
     width: 50,
     customRender: ({ record }) => {
       let resultText = '';
-      if (record.online === 1) {
+      if (record.online == 1) {
         resultText = t('fms.device.online');
       } else {
         resultText = t('fms.device.offline');
@@ -54,7 +52,7 @@ export const columns: BasicColumn[] = [
       return h(
         Tag,
         {
-          color: record.online == false ? 'green' : 'red',
+          color: record.online == 1 ? 'green' : 'red',
         },
         () => resultText,
       );

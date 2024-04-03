@@ -1,6 +1,8 @@
 import { BasicColumn, FormSchema } from '/@/components/Table';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { formatToDateTime } from '/@/utils/dateUtil';
+import { Switch, Tag } from 'ant-design-vue';
+import { h } from 'vue';
 import { getMenuList } from '/@/api/sys/menu';
 import { ParentIdEnum } from '/@/enums/appEnum';
 import { uploadImageApi ,uploadImageIconApi } from '/@/api/fms/file';
@@ -28,14 +30,24 @@ export const columns: BasicColumn[] = [
     width: 50,
   },
   {
-    title: t('fms.IllustratedGuide.Wikipedia'),
-    dataIndex: 'wikiUrl',
+    title: t('fms.device.onlinestatus'),
+    dataIndex: 'recordState',
     width: 50,
-  },
-  {
-    title: t('fms.IllustratedGuide.image'),
-    dataIndex: 'imagePath',
-    width: 50,
+    customRender: ({ record }) => {
+      let resultText = '';
+      if (record.recordState == 2) {
+        resultText = "已发布";
+      } else {
+        resultText = "未发布";
+      }
+      return h(
+        Tag,
+        {
+          color: record.recordState == 2 ? 'green' : 'red',
+        },
+        () => resultText,
+      );
+    },
   },
 ];
 
