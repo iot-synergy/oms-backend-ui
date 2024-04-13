@@ -15,6 +15,8 @@ enum Api {
   GetillustrationUpdate = '/bird-api/illustration/update',
   GetillustrationDelete = '/bird-api/illustration/delete',
   GetillustrationPublish = '/bird-api/illustration/publish',
+
+  GetClassesList = '/bird-api/classes/list',
   // 标签
   GetlabelList = '/bird-api/label/list',
   GetlabelCreate = '/bird-api/label/create',
@@ -54,6 +56,12 @@ export const getillustrationDelete = (params: BaseUUIDReq, mode: ErrorMessageMod
 export const getillustrationPublish = (params: BaseUUIDReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseListResp<llustratd>>(
     { url: Api.GetillustrationPublish, params },
+    { errorMessageMode: mode },
+  );
+};
+export const getClassesList = (params: {}, mode: ErrorMessageMode = 'notice') => {
+  return defHttp.post<BaseListResp<llustratd>>(
+    { url: Api.GetClassesList, params },
     { errorMessageMode: mode },
   );
 };

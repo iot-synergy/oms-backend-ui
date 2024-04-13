@@ -35,6 +35,10 @@
                     onClick: handleOpenLogModal.bind(null, record),
                   },
                   {
+                    icon: 'ic:round-library-books',
+                    onClick: handleOpenIllustratedModal.bind(null, record),
+                  },
+                  {
                     icon: 'bx:log-out-circle',
                     color: 'error',
                     popConfirm: {
@@ -61,6 +65,7 @@
     </Row>
     <MemberDrawer @register="registerDrawer" @success="handleSuccess" />
     <LogModal @register="registerModal" :defaultFullscreen="true" />
+    <Illustrated @register="registerModals" :defaultFullscreen="true" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -83,6 +88,7 @@
   import Col from 'ant-design-vue/es/grid/Col';
   import { logout } from '/@/api/member/token';
   import LogModal from './LogModal.vue';
+  import Illustrated from './Illustrated.vue';
 
   export default defineComponent({
     name: 'MemberManagement',
@@ -92,6 +98,7 @@
       TableAction,
       Button,
       LogModal,
+      Illustrated,
       PageWrapper,
       Row,
       Col,
@@ -106,6 +113,7 @@
       const addxUserId = ref('');
 
       const [registerDrawer, { openDrawer }] = useDrawer();
+      const [registerModals, { openModal:openModalForRegisterModals }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: t('sys.member.memberList'),
         api: getMemberList,
@@ -189,6 +197,11 @@
         openModal(true, { record });
       }
 
+      function handleOpenIllustratedModal(record: Recordable) {
+        addxUserId.value = record.id;
+        openModalForRegisterModals(true, { record });
+      }
+
       function handleSelect(rankId) {
         searchInfo.rankId = rankId;
         reload();
@@ -198,6 +211,7 @@
         t,
         addxUserId,
         registerModal,
+        registerModals,
         registerTable,
         registerDrawer,
         handleCreate,
@@ -210,6 +224,7 @@
         showDeleteButton,
         searchInfo,
         handleOpenLogModal,
+        handleOpenIllustratedModal,
       };
     },
   });

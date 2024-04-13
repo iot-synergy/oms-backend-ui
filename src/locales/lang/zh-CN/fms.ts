@@ -104,7 +104,8 @@ export default {
   IllustratedGuide:{
     title:"创建图鉴",
     edittitle:"编辑图鉴",
-    name:"标题",
+    name:"名称",
+    scientific:"学名",
     score:"评分",
     Wikipedia:"维基百科",
     image:"图片",

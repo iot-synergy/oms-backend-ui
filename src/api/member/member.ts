@@ -18,6 +18,7 @@ enum Api {
   DeleteMember = '/mms-api/member/delete',
   GetMemberById = '/mms-api/member',
   GetQueryUserDeviceList = '/mms-api/device/queryUserDeviceList',
+  Getgallerypage = '/bird-api/gallery/page',
 }
 
 /**
@@ -86,6 +87,15 @@ export const getMemberById = (params: BaseUUIDReq, mode: ErrorMessageMode = 'not
 export const getQueryUserDeviceList = (params: UserDeviceReq, mode: ErrorMessageMode = 'notice') => {
   return defHttp.post<BaseDataResp<DeviceInfo>>(
     { url: Api.GetQueryUserDeviceList, params: params },
+    {
+      errorMessageMode: mode,
+    },
+  );
+};
+
+export const getgallerypage = (params: {}, mode: ErrorMessageMode = 'notice') => {
+  return defHttp.post<BaseDataResp<DeviceInfo>>(
+    { url: Api.Getgallerypage, params: params },
     {
       errorMessageMode: mode,
     },

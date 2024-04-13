@@ -103,8 +103,9 @@ export default {
   },
   IllustratedGuide:{
     title:"Add a picture guide",
-    edittitle:"编辑图鉴",
-    name:"title",
+    edittitle:"Edit a guidebook",
+    name:"name",
+    scientific:"Scientific name",
     score:"score",
     Wikipedia:"Wikipedia",
     image:"image",

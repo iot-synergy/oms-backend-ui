@@ -7,6 +7,25 @@
     width="500px"
     @ok="handleSubmit"
   >
+    <div style="margin-bottom: 10px"><span style="color: red">* </span> 名称: </div>
+    <a-select
+      v-model:value="selectedValue"
+      show-search
+      allow-clear
+      style="width: 450px"
+      placeholder="Select a person"
+      :default-active-first-option="false"
+      :show-arrow="false"
+      :filter-option="false"
+      :not-found-content="null"
+      @search="handleSearch"
+      ref="selectRef"
+      @popupScroll="handleScroll"
+    >
+      <a-select-option v-for="option in options" :key="option.classesId" :value="option.value">
+        {{ option.englishName }}
+      </a-select-option>
+    </a-select>
     <BasicForm @register="registerForm" />
     <div>
       <div style="margin-bottom: 10px"><span style="color: red">* </span> 图片: </div>
@@ -27,7 +46,6 @@
         <img v-else :src="fileList[0]" alt="avatar" style="width: 90px; height: 90px" />
       </a-upload>
     </div>
-
     <div>
       <div style="margin-bottom: 10px"><span style="color: red">* </span> 背景图: </div>
       <a-upload
@@ -57,17 +75,24 @@
   import { formSchema } from './storageProvider.data';
   import { BasicDrawer, useDrawerInner } from '../../../components/Drawer';
   import { useI18n } from 'vue-i18n';
-  import { Upload, message } from 'ant-design-vue';
+  import { Upload, message, Select } from 'ant-design-vue';
   import {
     getillustrationCreate,
     getillustrationUpdate,
+    getClassesList,
   } from '../../../api/IllustratedGuide/IllustratedGuideList';
   import { useUserStore } from '/@/store/modules/user';
   import type { UploadProps } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'IllustratedGuideDrawer',
-    components: { BasicDrawer, BasicForm, 'a-upload': Upload },
+    components: {
+      BasicDrawer,
+      BasicForm,
+      'a-upload': Upload,
+      'a-select': Select,
+      'a-select-option': Select.Option,
+    },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
@@ -77,6 +102,11 @@
       const { t } = useI18n();
       const fileList = ref<UploadProps['fileList']>([]);
       const moreImages = ref<UploadProps['fileList']>([]);
+
+      const selectedValue = ref(undefined);
+      const options = ref<any[]>([]);
+      const page = ref(1);
+      const loading = ref(false);
 
       const headers = {
         Authorization: userStore.getToken,
@@ -95,6 +125,9 @@
         setDrawerProps({ confirmLoading: false });
 
         isUpdate.value = !!data?.isUpdate;
+        options.value = [];
+        page.value = 1;
+        fetchData('');
         if (unref(isUpdate)) {
           console.log(data.data);
           fileList.value = [data.data.imagePath];
@@ -102,10 +135,12 @@
             moreImages.value = data.data.moreImages;
           }
           menuId.value = data.data.id;
+          selectedValue.value = data.data.classesId;
           setFieldsValue({
             ...data.data,
           });
-        }else{
+        } else {
+          selectedValue.value = undefined;
           moreImages.value = [];
           fileList.value = [];
         }
@@ -127,8 +162,7 @@
         if (!unref(isUpdate)) {
           values['type'] = 'Illustrated';
         }
-        console.log(fileList.value);
-        console.log(values);
+        values['classesId'] = selectedValue.value;
         let result = !unref(isUpdate)
           ? await getillustrationCreate(values)
           : await getillustrationUpdate(values);
@@ -179,6 +213,43 @@
         }
       };
 
+      const fetchData = async (value: string) => {
+        loading.value = true;
+        let params = {
+          page: page.value,
+          pageSize: 50,
+        };
+        if (value != '') {
+          params['keyword'] = value;
+        }
+        let result = await getClassesList(params);
+        console.log('------------');
+        if (result['data']['data'].length == 50) {
+          loading.value = false;
+          page.value++;
+          options.value.push(...result['data']['data']);
+          console.log(options.value);
+        } else {
+          loading.value = true;
+          options.value.push(...result['data']['data']);
+        }
+      };
+
+      const handleScroll = (event) => {
+        const target = event.target;
+        if (target.scrollTop + target.clientHeight >= target.scrollHeight && !loading.value) {
+          console.log('滑到底部了');
+          fetchData('');
+        }
+      };
+
+      const handleSearch = async (value: string) => {
+        console.log(value);
+        page.value = 1;
+        options.value = [];
+        fetchData(value);
+      };
+
       return {
         fileList,
         moreImages,
@@ -191,6 +262,11 @@
         beforeUpload,
         handleSuccess,
         handleSuccesson,
+        selectedValue,
+        options,
+        loading,
+        handleSearch,
+        handleScroll,
       };
     },
   });

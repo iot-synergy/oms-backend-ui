@@ -21,6 +21,11 @@ export const columns: BasicColumn[] = [
   },
   {
     title: t('fms.IllustratedGuide.name'),
+    dataIndex: 'chineseName',
+    width: 50,
+  },
+  {
+    title: t('fms.IllustratedGuide.scientific'),
     dataIndex: 'title',
     width: 50,
   },
@@ -30,7 +35,7 @@ export const columns: BasicColumn[] = [
     width: 50,
   },
   {
-    title: t('fms.device.onlinestatus'),
+    title: "状态",
     dataIndex: 'recordState',
     width: 50,
     customRender: ({ record }) => {
@@ -58,26 +63,11 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Input',
     colProps: { span: 8 },
   },
-  // {
-  //   field: 'state',
-  //   label: t('fms.feedback.type'),
-  //   colProps: { span: 8 },
-  //   component: 'Select',
-  //   // defaultValue: 0,
-  //   componentProps: {
-  //     options: [
-  //       { label: t('fms.feedback.all'), value: 2 },
-  //       { label: t('fms.feedback.noReply'), value: 1 },
-  //       { label: t('fms.feedback.replied'), value: 0 },
-  //     ],
-  //   },
-  // },
   {
     field: 'state',
     label: t('common.status'),
     colProps: { span: 8 },
     component: 'Select',
-    // defaultValue: 0,
     componentProps: {
       options: [
         { label: "已发布", value: 2 },
@@ -88,12 +78,12 @@ export const searchFormSchema: FormSchema[] = [
 ];
 
 export const formSchema: FormSchema[] = [
-  {
-    field: 'title',
-    label: t('fms.IllustratedGuide.name'),
-    component: 'Input',
-    required: true,
-  },
+  // {
+  //   field: 'title',
+  //   label: t('fms.IllustratedGuide.name'),
+  //   component: 'Input',
+  //   required: true,
+  // },
   {
     field: 'score',
     label: t('fms.IllustratedGuide.score'),
