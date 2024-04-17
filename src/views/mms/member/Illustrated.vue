@@ -62,7 +62,7 @@
       });
 
       const [registerModal] = useModalInner(async (data) => {
-        searchInfo.userId = data.record.id;
+        searchInfo.userId = data.record.foreinId;
         console.log(searchInfo);
       });
 

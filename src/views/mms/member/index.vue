@@ -198,7 +198,7 @@
       }
 
       function handleOpenIllustratedModal(record: Recordable) {
-        addxUserId.value = record.id;
+        addxUserId.value = record.foreinId;
         openModalForRegisterModals(true, { record });
       }
 

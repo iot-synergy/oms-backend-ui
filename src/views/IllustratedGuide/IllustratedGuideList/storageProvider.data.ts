@@ -16,23 +16,32 @@ export const columns: BasicColumn[] = [
     dataIndex: 'createTime',
     width: 30,
     customRender: ({ record }) => {
-      return formatToDateTime(record.createTime);
+      return record.illustration ==null?formatToDateTime(record.createTime):formatToDateTime(record.illustration.createTime);
     },
   },
   {
     title: t('fms.IllustratedGuide.name'),
     dataIndex: 'chineseName',
     width: 50,
+    customRender: ({ record }) => {
+      return record.illustration ==null?record.chineseName:record.illustration.chineseName;
+    },
   },
   {
     title: t('fms.IllustratedGuide.scientific'),
     dataIndex: 'title',
     width: 50,
+    customRender: ({ record }) => {
+      return record.illustration ==null?record.title:record.illustration.title;
+    },
   },
   {
     title: t('fms.IllustratedGuide.score'),
     dataIndex: 'score',
     width: 50,
+    customRender: ({ record }) => {
+      return record.illustration ==null?record.score:record.illustration.score;
+    },
   },
   {
     title: "状态",
@@ -40,7 +49,8 @@ export const columns: BasicColumn[] = [
     width: 50,
     customRender: ({ record }) => {
       let resultText = '';
-      if (record.recordState == 2) {
+      let recordState = record.illustration ==null?record.recordState:record.illustration.recordState
+      if (recordState == 2) {
         resultText = "已发布";
       } else {
         resultText = "未发布";
@@ -48,7 +58,7 @@ export const columns: BasicColumn[] = [
       return h(
         Tag,
         {
-          color: record.recordState == 2 ? 'green' : 'red',
+          color: recordState == 2 ? 'green' : 'red',
         },
         () => resultText,
       );
